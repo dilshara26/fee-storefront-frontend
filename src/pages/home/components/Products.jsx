@@ -1,22 +1,16 @@
 import { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import Tab from "./Tab";
-import { getAllProducts } from "./../services/api/products";
+import { getAllProducts } from "../../../services/api/products";
+import { getAllCategories } from "../../../services/api/categories";
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
-
-  const categories = [
-    { id: "ALL", name: "All" },
-    { id: "1", name: "Headphones" },
-    { id: "2", name: "Earbuds" },
-    { id: "3", name: "Speakers" },
-    { id: "4", name: "Mobile Phones" },
-    { id: "5", name: "Smart Watches" },
-  ];
 
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const filteredProducts =
@@ -32,6 +26,19 @@ function Products() {
     getAllProducts()
       .then((data) => {
         setProducts(data);
+      })
+      .catch((e) => {
+        setIsError(true);
+        setError(e.message);
+        console.log(e);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    getAllCategories()
+      .then((data) => {
+        setCategories(data);
       })
       .catch((e) => {
         setIsError(true);
@@ -92,7 +99,7 @@ function Products() {
           </div>
 
           <div className="grid grid-cols-4 gap-6 mt-4">
-            <p>Some error happend: {error}</p>
+            <p className="text-red-500">Some error happend: {error}</p>
           </div>
         </div>
       </section>
@@ -110,7 +117,7 @@ function Products() {
             return (
               <Tab
                 selectedCategory={selectedCategory}
-                key={el.id}
+                key={el._id}
                 category={el}
                 onClick={handleTabClick}
               />
@@ -122,7 +129,7 @@ function Products() {
           {filteredProducts.map((el) => {
             return (
               <ProductCard
-                key={el.id}
+                key={el._id}
                 image={el.image}
                 name={el.name}
                 price={el.price}

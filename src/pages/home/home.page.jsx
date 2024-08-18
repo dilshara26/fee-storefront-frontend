@@ -1,17 +1,15 @@
 import Hero from "./components/Hero"; //! ./ => Inside the same folder
-import Navigation from "./components/Navigation";
 import Products from "./components/Products";
 
-function App() {
+function HomePage() {
   const name = "Manupa";
 
   return (
-    <main>
-      <Navigation name={name} />
+    <div>      
       <Hero />
       <Products />
-    </main>
+    </div>
   );
 }
 
-export default App;
+export default HomePage;

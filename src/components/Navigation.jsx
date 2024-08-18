@@ -1,19 +1,20 @@
-function Navigation(props) {
+import { Link } from "react-router-dom";
 
+function Navigation(props) {
   return (
     <nav className="flex items-center justify-between py-8 px-16">
       <div className="flex items-center gap-x-16">
-        <a className="font-semibold text-3xl" to="/">
+        <Link className="font-semibold text-3xl" to="/">
           Mebius
-        </a>
+        </Link>
         <div className="flex items-center gap-x-4">
-          <a href="/">Home</a>
-          <a href="/shop">Shop</a>
+          <Link to="/">Home</Link>
+          <Link to="/shop">Shop</Link>
         </div>
       </div>
       <div className="flex items-center gap-x-8">
         <div>
-          <a href="/cart" className="flex items-center gap-x-4 relative">
+          <Link to="/cart" className="flex items-center gap-x-4 relative">
             <p className="text-lg">{0}</p>
             <div className="flex items-center gap-x-2">
               <svg
@@ -34,7 +35,7 @@ function Navigation(props) {
               </svg>
               Cart
             </div>
-          </a>
+          </Link>
         </div>
         <p>Hi, {props.name}</p>
       </div>
