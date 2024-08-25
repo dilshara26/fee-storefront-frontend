@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/cartContext";
 
 function Navigation(props) {
+  const { cart } = useContext(CartContext);
+
   return (
     <nav className="flex items-center justify-between py-8 px-16">
       <div className="flex items-center gap-x-16">
@@ -15,7 +19,11 @@ function Navigation(props) {
       <div className="flex items-center gap-x-8">
         <div>
           <Link to="/cart" className="flex items-center gap-x-4 relative">
-            <p className="text-lg">{0}</p>
+            <p className="text-lg">
+              {cart.reduce((sum, el) => {
+                return sum + el.count;
+              }, 0)}
+            </p>
             <div className="flex items-center gap-x-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +53,6 @@ function Navigation(props) {
 
 export default Navigation;
 
-
 const props = {
-    name: "Manupa",
-}
+  name: "Manupa",
+};

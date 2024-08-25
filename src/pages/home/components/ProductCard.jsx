@@ -1,24 +1,24 @@
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import { CartContext } from "../../../context/cartContext";
+import { useContext } from "react";
 
 function ProductCard(props) {
   const [isLiked, setIsLiked] = useState(false);
-  const [num, setNum] = useState(0);
+  const { updateCart } = useContext(CartContext);
 
   const handleClick = () => {
-    if (isLiked) {
-      setIsLiked(false);
-    } else {
-      setIsLiked(true);
-    }
-    //setIsLiked(!isLiked)
+    setIsLiked(!isLiked);
   };
 
   const handleAddToCart = () => {
-    // setNum((num) => {
-    //   return num + 1;
-    // });
-    setNum(num + 1);
+    updateCart({
+      _id: props._id,
+      name: props.name,
+      price: props.price,
+      image: props.image,
+      description: props.description,
+    });
   };
 
   return (
@@ -37,7 +37,6 @@ function ProductCard(props) {
       <div className={`h-64 rounded-xl bg-[#f4f8f9] relative`}>
         <img src={props.image} alt="" className="w-full h-full object-cover" />
       </div>
-      <p>{num}</p>
       <div className="mt-4">
         <div className=" flex items-center justify-between">
           <span className="block text-2xl font-semibold">{props.name}</span>

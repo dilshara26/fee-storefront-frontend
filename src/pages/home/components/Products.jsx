@@ -85,17 +85,17 @@ function Products() {
         <div className="border mt-4"></div>
 
         <div className="py-8">
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4">         
             {categories.map((el) => {
               return (
                 <Tab
                   selectedCategory={selectedCategory}
-                  key={el.id}
+                  key={el._id}
                   category={el}
                   onClick={handleTabClick}
                 />
               );
-            })}
+            })}            
           </div>
 
           <div className="grid grid-cols-4 gap-6 mt-4">
@@ -113,7 +113,7 @@ function Products() {
 
       <div className="py-8">
         <div className="flex items-center gap-x-4">
-          {categories.map((el) => {
+          {categories.concat([{_id:"ALL", name:"ALL"}]).map((el) => {
             return (
               <Tab
                 selectedCategory={selectedCategory}
@@ -130,6 +130,7 @@ function Products() {
             return (
               <ProductCard
                 key={el._id}
+                _id={el._id}
                 image={el.image}
                 name={el.name}
                 price={el.price}
