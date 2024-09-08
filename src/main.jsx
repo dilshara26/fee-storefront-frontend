@@ -9,6 +9,15 @@ import HomePage from "./pages/home/home.page.jsx";
 import CartPage from "./pages/cart/cart.page.jsx";
 import RootLayout from "./layouts/root.layout.jsx";
 import CheckoutPage from "./pages/checkout/checkout.page.jsx";
+import SignInPage from "./pages/auth/sign-in/sign-in.page.jsx";
+import SignUpPage from "./pages/auth/sign-up/sign-up.page.jsx";
+import { ClerkProvider } from "@clerk/clerk-react";
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+if (!PUBLISHABLE_KEY) {
+  throw new Error("Missing Publishable Key");
+}
 
 const router = createBrowserRouter([
   {
@@ -28,10 +37,20 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/sign-in",
+    element: <SignInPage />,
+  },
+  {
+    path: "/sign-up",
+    element: <SignUpPage />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <RouterProvider router={router} />
+    </ClerkProvider>
   </React.StrictMode>
 );

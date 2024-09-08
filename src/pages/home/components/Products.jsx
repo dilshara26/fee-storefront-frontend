@@ -3,14 +3,19 @@ import ProductCard from "./ProductCard";
 import Tab from "./Tab";
 import { getAllProducts } from "../../../services/api/products";
 import { getAllCategories } from "../../../services/api/categories";
+import { useSession } from "@clerk/clerk-react";
+
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
+
+  const { session } = useSession()
+  
 
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const filteredProducts =
@@ -23,7 +28,7 @@ function Products() {
   };
 
   useEffect(() => {
-    getAllProducts()
+    getAllProducts(session)
       .then((data) => {
         setProducts(data);
       })
@@ -85,7 +90,7 @@ function Products() {
         <div className="border mt-4"></div>
 
         <div className="py-8">
-          <div className="flex items-center gap-x-4">         
+          <div className="flex items-center gap-x-4">
             {categories.map((el) => {
               return (
                 <Tab
@@ -95,7 +100,7 @@ function Products() {
                   onClick={handleTabClick}
                 />
               );
-            })}            
+            })}
           </div>
 
           <div className="grid grid-cols-4 gap-6 mt-4">
@@ -113,7 +118,7 @@ function Products() {
 
       <div className="py-8">
         <div className="flex items-center gap-x-4">
-          {categories.concat([{_id:"ALL", name:"ALL"}]).map((el) => {
+          {categories.concat([{ _id: "ALL", name: "ALL" }]).map((el) => {
             return (
               <Tab
                 selectedCategory={selectedCategory}

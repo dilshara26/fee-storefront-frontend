@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { SignedIn, UserButton, useUser, SignedOut } from "@clerk/clerk-react";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/cartContext";
 
 function Navigation(props) {
   const { cart } = useContext(CartContext);
+  const { isSignedIn, user, isLoaded } = useUser();
 
   return (
     <nav className="flex items-center justify-between py-8 px-16">
@@ -45,7 +47,15 @@ function Navigation(props) {
             </div>
           </Link>
         </div>
-        <p>Hi, {props.name}</p>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <div className="flex items-center gap-x-4">
+            <Link to="/sign-in">Sign In</Link>
+            <Link to="/sign-up">Sign Up</Link>
+          </div>
+        </SignedOut>
       </div>
     </nav>
   );

@@ -4,7 +4,17 @@ import { CartContext } from "../../context/cartContext";
 import { createOrder } from "../../services/api/orders";
 
 function CheckoutPage() {
+  const { isSignedIn, user, isLoaded } = useUser();
   const { cart } = useContext(CartContext);
+
+  if (!isLoaded) {
+    // Handle loading state however you like
+    return null;
+  }
+
+  if (!isSignedIn) {
+    return <Navigate to="/sign-in" />;
+  }
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -23,7 +33,7 @@ function CheckoutPage() {
         orderProducts: cart.map((el) => ({
           productId: el._id,
           quantity: el.count,
-        })),        
+        })),
       });
     } catch (error) {}
   };
