@@ -6,4 +6,6 @@ export const createOrder = async (data) => {
     },
     body: JSON.stringify(data),
   });
+
+  return await res.json();
 };

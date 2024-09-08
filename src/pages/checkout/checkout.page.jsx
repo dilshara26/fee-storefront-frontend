@@ -3,8 +3,13 @@ import TextInput from "../../components/TextInput";
 import { CartContext } from "../../context/cartContext";
 import { createOrder } from "../../services/api/orders";
 
+import { useUser } from "@clerk/clerk-react";
+import { Navigate, useNavigate } from "react-router-dom";
+
 function CheckoutPage() {
+  const { user, isSignedIn, isLoaded } = useUser();
   const { cart } = useContext(CartContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fname: "",
@@ -15,16 +20,33 @@ function CheckoutPage() {
     phone: "",
   });
 
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  if (!isSignedIn) {
+    return <Navigate to="/sign-in" />;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createOrder({
-        userId: "123",
+      const order = await createOrder({
+        userId: user.id,
         orderProducts: cart.map((el) => ({
           productId: el._id,
           quantity: el.count,
-        })),        
+        })),
+        address: {
+          fname: formData.fname,
+          lname: formData.lname,
+          line_1: formData.line_1,
+          line_2: formData.line_2,
+          city: formData.city,
+          phone: formData.phone,
+        },
       });
+      navigate(`/payment?orderId=${order._id}`);
     } catch (error) {}
   };
 
