@@ -6,6 +6,8 @@ import { createOrder } from "../../services/api/orders";
 import { useUser } from "@clerk/clerk-react";
 import { Navigate, useNavigate } from "react-router-dom";
 
+import { toast } from 'sonner';
+
 function CheckoutPage() {
   const { user, isSignedIn, isLoaded } = useUser();
   const { cart } = useContext(CartContext);
@@ -31,6 +33,7 @@ function CheckoutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      toast.loading('Placing the order...');
       const order = await createOrder({
         userId: user.id,
         orderProducts: cart.map((el) => ({
@@ -46,8 +49,11 @@ function CheckoutPage() {
           phone: formData.phone,
         },
       });
+      toast.success('Successfully placed the order!');
       navigate(`/payment?orderId=${order._id}`);
-    } catch (error) {}
+    } catch (error) {
+      toast.error('Error while placing the order!');
+    }
   };
 
   const handleChange = (e) => {
