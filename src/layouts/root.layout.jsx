@@ -11,20 +11,30 @@ function RootLayout() {
   const updateCart = (product) => {
     if (cart.find((el) => product._id === el._id)) {
       //! Handle the scenario where if product is already in cart
-      setCart(cart.map((el) => el._id === product._id ? {...el, count:el.count + 1} : el));
+      setCart(
+        cart.map((el) =>
+          el._id === product._id ? { ...el, count: el.count + 1 } : el
+        )
+      );
       return;
     }
-      //! Handle the scenario where if product is added to the cart for the first time
-      setCart([...cart, {...product, count: 1}]);
-      return;
-  }
+    //! Handle the scenario where if product is added to the cart for the first time
+    setCart([...cart, { ...product, count: 1 }]);
+    return;
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
 
   return (
-    <CartContext.Provider value={{cart:cart, updateCart:updateCart}}>
-    <main>
-      <Navigation name={name} />
-      <Outlet />
-    </main>
+    <CartContext.Provider
+      value={{ cart: cart, updateCart: updateCart, clearCart: clearCart }}
+    >
+      <main>
+        <Navigation name={name} />
+        <Outlet />
+      </main>
     </CartContext.Provider>
   );
 }

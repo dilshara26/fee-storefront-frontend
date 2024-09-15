@@ -2,6 +2,7 @@ import { Heart } from "lucide-react";
 import { useState } from "react";
 import { CartContext } from "../../../context/cartContext";
 import { useContext } from "react";
+import { toast } from 'sonner';
 
 function ProductCard(props) {
   const [isLiked, setIsLiked] = useState(false);
@@ -19,6 +20,7 @@ function ProductCard(props) {
       image: props.image,
       description: props.description,
     });
+    toast.success('Item added to cart');
   };
 
   return (

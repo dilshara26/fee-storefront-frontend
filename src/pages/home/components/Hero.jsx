@@ -1,3 +1,5 @@
+import { createCategory } from "../../../services/api/product";
+
 function Hero() {
   return (
     <section className="py-8 px-16">
@@ -19,6 +21,9 @@ function Hero() {
           >
             Shop Now
           </a>
+          {/* <button className="border border-red-500 w-fit p-2" onClick={async () => createCategory()}>
+            Test Create Category
+          </button> */}
         </div>
         <div className=" relative">
           <img

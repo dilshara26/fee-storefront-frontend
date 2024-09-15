@@ -12,6 +12,7 @@ import CheckoutPage from "./pages/checkout/checkout.page.jsx";
 import SignInPage from "./pages/auth/sign-in/sign-in.page.jsx";
 import SignUpPage from "./pages/auth/sign-up/sign-up.page.jsx";
 import PaymentPage from "./pages/payment/payment.page.jsx";
+import { Toaster } from 'sonner';
 
 import { ClerkProvider } from "@clerk/clerk-react";
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -56,6 +57,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <RouterProvider router={router} />
+      <Toaster richColors/>
     </ClerkProvider>
   </React.StrictMode>
 );

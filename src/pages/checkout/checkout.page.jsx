@@ -6,9 +6,11 @@ import { createOrder } from "../../services/api/orders";
 import { useUser } from "@clerk/clerk-react";
 import { Navigate, useNavigate } from "react-router-dom";
 
+import { toast } from "sonner";
+
 function CheckoutPage() {
   const { user, isSignedIn, isLoaded } = useUser();
-  const { cart } = useContext(CartContext);
+  const { cart, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -28,6 +30,10 @@ function CheckoutPage() {
     return <Navigate to="/sign-in" />;
   }
 
+  // if (user?.publicMetadata?.role !== "admin") {
+  //   return <Navigate to="/" />;
+  // }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -46,8 +52,12 @@ function CheckoutPage() {
           phone: formData.phone,
         },
       });
+      clearCart();
+      toast.success("Successfully placed order!");
       navigate(`/payment?orderId=${order._id}`);
-    } catch (error) {}
+    } catch (error) {
+      toast.error("Order placement failed. Please try again later.");
+    }
   };
 
   const handleChange = (e) => {

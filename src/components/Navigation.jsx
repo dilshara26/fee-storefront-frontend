@@ -6,6 +6,9 @@ import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/clerk-react";
 function Navigation(props) {
   const { cart } = useContext(CartContext);
   const { user, isSignedIn, isLoaded } = useUser();
+
+  console.log(user?.publicMetadata?.role);
+
   return (
     <nav className="flex items-center justify-between py-8 px-16">
       <div className="flex items-center gap-x-16">
