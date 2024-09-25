@@ -37,7 +37,7 @@ function PaymentPage() {
   //   merchant_id: "121XXXX", // Replace your Merchant ID
   //   return_url: undefined, // Important
   //   cancel_url: undefined, // Important
-  //   notify_url: "http://localhost:8000/api/orders/webhook/payment",
+  //   notify_url: "https://fee-storefront-backend.onrender.com/api/orders/webhook/payment",
   //   order_id: "ItemNo12345",
   //   items: "Door bell wireles",
   //   amount: order.orderProducts.reduce((acc, el) => acc + (parseFloat(el.productId.price) * el.quantity ), 0),
