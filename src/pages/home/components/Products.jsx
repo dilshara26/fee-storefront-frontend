@@ -107,12 +107,12 @@ function Products() {
   }
 
   return (
-    <section className="py-8 px-16">
+    <section className="py-8 px-4 xl:px-16">
       <h1 className="text-4xl font-semibold">Our Top Products</h1>
       <div className="border mt-4"></div>
 
       <div className="py-8">
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-4 overflow-x-scroll">
           {categories.concat([{_id:"ALL", name:"ALL"}]).map((el) => {
             return (
               <Tab
@@ -125,7 +125,7 @@ function Products() {
           })}
         </div>
 
-        <div className="grid lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
+        <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
           {filteredProducts.map((el) => {
             return (
               <ProductCard
