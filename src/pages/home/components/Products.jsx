@@ -125,7 +125,7 @@ function Products() {
           })}
         </div>
 
-        <div className="grid grid-cols-4 gap-6 mt-4">
+        <div className="grid lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4">
           {filteredProducts.map((el) => {
             return (
               <ProductCard

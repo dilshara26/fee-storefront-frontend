@@ -15,7 +15,7 @@ function Navigation(props) {
         <Link className="font-semibold text-3xl" to="/">
           Mebius
         </Link>
-        <div className="flex items-center gap-x-4">
+        <div className="hidden lg:flex items-center gap-x-4">
           <Link to="/">Home</Link>
           <Link to="/shop">Shop</Link>
         </div>

@@ -2,13 +2,13 @@ import { createCategory } from "../../../services/api/product";
 
 function Hero() {
   return (
-    <section className="py-8 px-16">
+    <section className="py-8 px-4 xl:px-16">
       <div className="grid grid-cols-2 rounded-md min-h-[60vh] bg-[#f4f8f9]">
         <div className="flex flex-col justify-center p-16 gap-y-4">
           <span className="block rounded-full px-2 py-1 text-xs  w-fit bg-[#febc26]">
             WEEKLY DISCOUNT
           </span>
-          <h1 className="text-6xl font-semibold">
+          <h1 className="text-4xl xl:text-6xl font-semibold">
             Premium Product Online Shop
           </h1>
           <p>
