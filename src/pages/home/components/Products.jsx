@@ -112,7 +112,7 @@ function Products() {
       <div className="border mt-4"></div>
 
       <div className="py-8">
-        <div className="flex items-center gap-x-4 overflow-x-scroll">
+        <div className="flex items-center gap-x-4 overflow-x-scroll scrollbar-hidden">
           {categories.concat([{_id:"ALL", name:"ALL"}]).map((el) => {
             return (
               <Tab
